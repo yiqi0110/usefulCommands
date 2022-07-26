@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+function cnn() {
+  homeDir=$2
+  folderName=$1
+
+  if [[ $# -eq 1 ]]; then
+	echo "No folder selected, $(pwd) selected by default.";
+	echo "Folder name selected: ${folderName}"
+
+	mkdir ./${folderName}
+	cd ./${folderName}
+  fi
+
+  if [[ $# -eq 2 ]]; then
+	echo "Directory selected: ${homeDir}";
+
+	echo "Folder name selected: ${folderName}";
+
+    	mkdir ${homeDir}/${folderName};
+    	cd ${homeDir}/${folderName};
+  fi
+}
