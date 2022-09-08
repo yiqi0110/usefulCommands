@@ -1,0 +1,16 @@
+DECLARE @msg VARCHAR(400)
+DECLARE @total INT = (SELECT COUNT(*) FROM ['SCHEMA_NAME'].['TABLE_NAME'])
+
+WHILE (1=1)
+BEGIN
+	DELETE TOP (1000000) FROM ['SCHEMA_NAME'].['TABLE_NAME']
+
+IF @@ROWCOUNT = 0   -- No row affected.
+  BREAK
+ ELSE
+	set @total = @total - 1000000
+	SELECT @msg = CAST(CAST(CURRENT_TIMESTAMP AS TIME) AS VARCHAR(100))
+	+ ' ::[-]:: ' + CAST(@total AS VARCHAR(50)) + ' rows remaining'
+	RAISERROR (@msg, 0, 1) WITH NOWAIT
+  CONTINUE
+END
